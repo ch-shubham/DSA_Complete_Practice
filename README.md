@@ -33,3 +33,12 @@
 - Quick Sort
 - Remove consecutive duplicate chars from string. EX: "aabbccdeadd" should return "abcdead"
 - String Recursion
+
+## OOPS
+
+- Creating Objects
+- Getters and Setters
+- Constructor and `this` keyword
+- Inbuilt Constructors and destructors
+- Fraction Class (Example only not important)
+- Complex Numbers Class(Example only not important)
