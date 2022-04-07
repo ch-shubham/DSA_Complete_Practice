@@ -1,5 +1,7 @@
 # DSA Complete
 
+- Reading from this repository and Notes(Will be uploading pdf here also after some time) is more than enough. 
+
 ## Pointers
 
 - Basics of Pointers
