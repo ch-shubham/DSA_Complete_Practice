@@ -42,3 +42,9 @@
 - Inbuilt Constructors and destructors
 - Fraction Class (Example only not important)
 - Complex Numbers Class(Example only not important)
+- Shallow And Deep Copy
+- Copy Constructor
+- Initialization List
+- Constant Functions
+- Static Members
+- Operator Overloading
