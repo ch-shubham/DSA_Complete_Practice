@@ -11,7 +11,7 @@ using namespace std;
 //   int data;
 //   cin>>data;
 //   Node *head = NULL;
-//   // Assuming that -1 is exit point andno more elements need to be entered ater entering -1
+//   // Assuming that -1 is exit point andno more elements need to be inserted ater inserting -1
 //   while(data != -1){
 //     Node *newNode = new Node(data); // Dynamic allocation is important as scope and Node gets deleted automatically if created in stack memory.
 //     if(head == NULL){ // Initializing the Head pointer for the firest time.
@@ -37,7 +37,7 @@ Node* takeInput(){
   cin>>data;
   Node *head = NULL;
   Node *tail = NULL;
-  // Assuming that -1 is exit point andno more elements need to be entered ater entering -1
+  // Assuming that -1 is exit point andno more elements need to be inserted ater inserting -1
   while(data != -1){
     Node *newNode = new Node(data); // Dynamic allocation is important as scope and Node gets deleted automatically if created in stack memory.
     if(head == NULL){ // Initializing the Head pointer for the firest time.
@@ -49,6 +49,28 @@ Node* takeInput(){
       tail=newNode;
     }
     cin>>data;
+  }
+  return head;
+}
+
+// pos is the Index where we want to add the element.
+Node* insertAt_ith_Postition(Node *head, int data, int i){
+  Node* newNode = new Node(data);
+  Node *temp = head;
+  // for(int i = 0; i < pos - 1; i++ ){ //  not correct as the pos can be 0 or 1 also that will be skipped by this loop.
+  int count = 0;
+  if(i == 0){
+    newNode->next = head;
+    head = newNode;
+    return head;  // returns the new Head if node is inserted at the start only.
+  }
+  while(count < i - 1 && temp !=NULL){
+    temp = temp->next;
+    count++;
+  }
+  if(temp != NULL){
+    newNode->next = temp->next;
+    temp->next=newNode;
   }
   return head;
 }
@@ -87,6 +109,12 @@ int main(){
   // n4.next = &n5;
 
   Node* head = takeInput();
+
+  print(head);
+
+  // head = insertAt_ith_Postition(head, 120, 2);
+  // head = insertAt_ith_Postition(head, 120, 0);
+  // head = insertAt_ith_Postition(head, 120, 10);
 
   print(head);
 
