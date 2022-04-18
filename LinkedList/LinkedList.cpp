@@ -75,6 +75,29 @@ Node* insertAt_ith_Postition(Node *head, int data, int i){
   return head;
 }
 
+Node* delete_at_ith_pos(Node *head, int pos){
+  if(pos == 0){
+    Node *temp = head;
+    head = head->next;
+    delete temp;
+    return head;
+  }
+  int count = 0;
+  Node *temp = head;
+  while(count < pos - 1 && temp != NULL ){ // overflow condition also handled and temp will point to a node before node where the deletion has to be done. i.e. temp will point at (pos-1)th node.
+    temp=temp->next;
+    count++;
+  }
+  if(temp!=NULL){
+    Node* d = temp->next;
+    temp->next = temp -> next -> next; //temp -> next -> next; is same as d->next
+    delete d;
+  }
+  return head;
+}
+
+
+
 
 void print(Node *head){
   Node *temp = head;
@@ -115,6 +138,11 @@ int main(){
   // head = insertAt_ith_Postition(head, 120, 2);
   // head = insertAt_ith_Postition(head, 120, 0);
   // head = insertAt_ith_Postition(head, 120, 10);
+
+
+  // head = delete_at_ith_pos(head, 2);
+  // head = delete_at_ith_pos(head, 0);
+  head = delete_at_ith_pos(head, 10);
 
   print(head);
 
