@@ -96,7 +96,14 @@ Node* delete_at_ith_pos(Node *head, int pos){
   return head;
 }
 
-
+// Calculate the length of the linked list using recursion.
+int length_of_linked_list_using_recursion(Node* head){
+  if(head == NULL){
+    return 0;
+  }
+  int length = length_of_linked_list_using_recursion(head->next) + 1;
+  return length;
+}
 
 
 void print(Node *head){
@@ -133,6 +140,7 @@ int main(){
 
   Node* head = takeInput();
 
+  cout<<"Linked List is: ";
   print(head);
 
   // head = insertAt_ith_Postition(head, 120, 2);
@@ -142,9 +150,11 @@ int main(){
 
   // head = delete_at_ith_pos(head, 2);
   // head = delete_at_ith_pos(head, 0);
-  head = delete_at_ith_pos(head, 10);
+  // head = delete_at_ith_pos(head, 10);
 
-  print(head);
+  int length = length_of_linked_list_using_recursion(head);  
+  cout<<"Length of LL using recursion is: "<<length<<endl;
+  // print(head);
 
   // // cout << n1.data << " "<< n2.data << endl;
   // cout << head->data << endl; // or we can also write: // cout << (*head).data << endl; both are same
