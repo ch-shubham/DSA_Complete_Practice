@@ -105,6 +105,21 @@ int length_of_linked_list_using_recursion(Node* head){
   return length;
 }
 
+// inserting at i-th position using recursion
+Node* insertAt_ith_Postition_using_recursion(Node * head, int data, int pos){
+  if(head == NULL){
+    return head;
+  } 
+  if(pos == 0){
+    Node* newNode = new Node(data);
+    newNode -> next = head;
+    head = newNode;
+    return head;
+  }
+  head-> next = insertAt_ith_Postition_using_recursion(head->next, data, pos-1);
+  return head;
+}
+
 
 void print(Node *head){
   Node *temp = head;
@@ -148,12 +163,18 @@ int main(){
   // head = insertAt_ith_Postition(head, 120, 10);
 
 
+  head = insertAt_ith_Postition_using_recursion(head, 120, 2);
+  // head = insertAt_ith_Postition_using_recursion(head, 120, 0);
+  // head = insertAt_ith_Postition_using_recursion(head, 120, 10);
+
+  print(head);
+
   // head = delete_at_ith_pos(head, 2);
   // head = delete_at_ith_pos(head, 0);
   // head = delete_at_ith_pos(head, 10);
 
-  int length = length_of_linked_list_using_recursion(head);  
-  cout<<"Length of LL using recursion is: "<<length<<endl;
+  // int length = length_of_linked_list_using_recursion(head);  
+  // cout<<"Length of LL using recursion is: "<<length<<endl;
   // print(head);
 
   // // cout << n1.data << " "<< n2.data << endl;
