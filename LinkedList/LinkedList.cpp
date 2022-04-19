@@ -175,6 +175,54 @@ Node* mid_without_length(Node *head){
   return slow;
 }
 
+// Merging two sorted linked list using iterative method.
+Node* merge_sorted_ll_without_recursion(Node *head1, Node *head2){
+  Node dummyNode(-1);
+  Node *ptr3 = &dummyNode;
+  while(head1 != NULL && head2 != NULL){
+    if(head1->data < head2->data){
+      ptr3 -> next = head1;
+      head1 = head1->next;
+    }else{
+      ptr3 -> next = head2;
+      head2 = head2->next;
+    }
+    ptr3 = ptr3->next;
+  }
+  while(head1 != NULL){
+      ptr3 -> next = head1;
+      head1 = head1->next;
+      ptr3 = ptr3->next;
+  }
+
+  while(head2 != NULL){
+      ptr3 -> next = head2;
+      head2 = head2->next;
+      ptr3 = ptr3->next;
+  }
+  return dummyNode.next; // No need to delete as it is made in stack memory and dummyNode is not a pointer so we can access next using dot(.)
+}
+
+// Merging two sorted array using recursion
+Node* merge_sorted_ll_with_recursion(Node*head1, Node* head2){
+  if(head1 == NULL) {
+    return head2;
+  }
+  if(head2 == NULL) {
+    return head1;
+  }
+  Node* result = NULL;
+  if(head1->data < head2->data){
+    result = head1;
+    result->next = merge_sorted_ll_with_recursion(head1->next, head2);
+  }else{
+    result = head2;
+    result->next = merge_sorted_ll_with_recursion(head1, head2->next);
+  }
+  return result;
+}
+
+
 int main(){
   // STATICALLY
   // Node n1(1);
@@ -189,9 +237,11 @@ int main(){
   // n3.next = &n4;
   // n4.next = &n5;
 
-  Node* head = takeInput();
+  // Node* head = takeInput();
+  Node* head1 = takeInput();
+  Node* head2 = takeInput();
 
-  print(head);
+  // print(head);
 
   // head = insertAt_ith_Postition(head, 120, 2);
   // head = insertAt_ith_Postition(head, 120, 0);
@@ -214,16 +264,25 @@ int main(){
 
   // print(head);
 
-  Node* mid1 = mid_using_length(head);
-  if(mid1 != NULL){
-    cout<<mid1->data<<endl;
-  }
+  print(head1);
+  print(head2);
+  // Node * merged_head_without_recursion = merge_sorted_ll_without_recursion(head1, head2); // WITHOUT RECURSION
+  // print(merged_head_without_recursion);
+  Node * merged_head_with_recursion = merge_sorted_ll_with_recursion(head1, head2); // WITH RECURSION
+  print(merged_head_with_recursion);
 
 
-  Node* mid2 = mid_without_length(head);
-  if(mid2 != NULL){
-    cout<<mid2->data<<endl;
-  }
+
+  // Node* mid1 = mid_using_length(head);
+  // if(mid1 != NULL){
+  //   cout<<mid1->data<<endl;
+  // }
+
+
+  // Node* mid2 = mid_without_length(head);
+  // if(mid2 != NULL){
+  //   cout<<mid2->data<<endl;
+  // }
   // int length = length_of_linked_list_using_recursion(head);  
   // cout<<"Length of LL using recursion is: "<<length<<endl;
   // print(head);
