@@ -151,6 +151,30 @@ void print(Node *head){
 }
 
 
+// Finding the mid using the length. O(n)
+Node* mid_using_length(Node *head){
+  int len = length_of_linked_list_using_recursion(head);
+  Node* temp = head;
+  for(int i = 0; i < (len-1)/2; i++){
+    temp = temp->next;
+  }
+  return temp;
+}
+
+// Optimized way to calculate the mid in O(n/2)
+Node* mid_without_length(Node *head){
+  if(head == NULL){
+    return head;
+  }
+  Node* slow = head;
+  Node* fast = head->next;
+  while(fast != NULL && fast->next != NULL){
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+  return slow;
+}
+
 int main(){
   // STATICALLY
   // Node n1(1);
@@ -186,10 +210,20 @@ int main(){
 
   // head = delete_at_ith_pos_using_recursion(head, 2);
   // head = delete_at_ith_pos_using_recursion(head, 0);
-  head = delete_at_ith_pos_using_recursion(head, 10);
+  // head = delete_at_ith_pos_using_recursion(head, 10);
 
-  print(head);
+  // print(head);
 
+  Node* mid1 = mid_using_length(head);
+  if(mid1 != NULL){
+    cout<<mid1->data<<endl;
+  }
+
+
+  Node* mid2 = mid_without_length(head);
+  if(mid2 != NULL){
+    cout<<mid2->data<<endl;
+  }
   // int length = length_of_linked_list_using_recursion(head);  
   // cout<<"Length of LL using recursion is: "<<length<<endl;
   // print(head);
