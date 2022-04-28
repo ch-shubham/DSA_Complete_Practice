@@ -223,6 +223,22 @@ Node* merge_sorted_ll_with_recursion(Node*head1, Node* head2){
 }
 
 
+Node * merge_sort(Node * head){
+  if(head == NULL || head->next == NULL) {
+    return head;
+  }
+
+  Node * head1 = head;
+  Node * mid = mid_without_length(head);
+  Node * head2 = mid->next;
+  mid->next = NULL;
+  Node * sortedHead1 = merge_sort(head1);
+  Node * sortedHead2 = merge_sort(head2);
+  return merge_sorted_ll_with_recursion(sortedHead1, sortedHead2);
+}
+
+
+
 int main(){
   // STATICALLY
   // Node n1(1);
@@ -237,9 +253,9 @@ int main(){
   // n3.next = &n4;
   // n4.next = &n5;
 
-  // Node* head = takeInput();
-  Node* head1 = takeInput();
-  Node* head2 = takeInput();
+  Node* head = takeInput();
+  // Node* head1 = takeInput();
+  // Node* head2 = takeInput();
 
   // print(head);
 
@@ -264,12 +280,14 @@ int main(){
 
   // print(head);
 
-  print(head1);
-  print(head2);
-  // Node * merged_head_without_recursion = merge_sorted_ll_without_recursion(head1, head2); // WITHOUT RECURSION
-  // print(merged_head_without_recursion);
-  Node * merged_head_with_recursion = merge_sorted_ll_with_recursion(head1, head2); // WITH RECURSION
-  print(merged_head_with_recursion);
+  // print(head1);
+  // print(head2);
+  // // Node * merged_head_without_recursion = merge_sorted_ll_without_recursion(head1, head2); // WITHOUT RECURSION
+  // // print(merged_head_without_recursion);
+  // Node * merged_head_with_recursion = merge_sorted_ll_with_recursion(head1, head2); // WITH RECURSION
+  // print(merged_head_with_recursion);
+  Node* merge_sorted_head = merge_sort(head);
+  print(merge_sorted_head);
 
 
 
