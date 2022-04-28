@@ -289,6 +289,18 @@ Node * reverse_LL_better(Node* head){
 }
 
 
+// Here the time complexity is O(n). Muck more easy and simple than above one. 
+Node* reverse_LL_3(Node * h){
+  Node * head = h;
+  if(head == NULL || head -> next == NULL){
+    return head;
+  }
+  Node * smallAns = reverse_LL_3(head->next);
+  Node * tail = head -> next;
+  tail->next = head;
+  head->next = NULL;
+  return smallAns;
+}
 
 int main(){
   // STATICALLY
@@ -343,7 +355,10 @@ int main(){
   // Node* reversed_LL_head = reverse_LL(head);
   // print(reversed_LL_head);
 
-  Node* reversed_LL_head = reverse_LL_better(head);
+  // Node* reversed_LL_head = reverse_LL_better(head);
+  // print(reversed_LL_head);
+
+  Node* reversed_LL_head = reverse_LL_3(head);
   print(reversed_LL_head);
 
 
