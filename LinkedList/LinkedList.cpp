@@ -238,6 +238,23 @@ Node * merge_sort(Node * head){
 }
 
 
+// Here the time complexity is O(n^2). Which is not at all good. So optimization needs to be done.
+Node* reverse_LL(Node * h){
+  Node * head = h;
+  if(head == NULL || head -> next == NULL){
+    return head;
+  }
+  Node * smallAns = reverse_LL(head->next);
+  Node * temp = smallAns;
+  while(temp->next != NULL){
+    temp = temp -> next;
+  }
+  temp->next = head;
+  head->next = NULL;
+  return smallAns;
+}
+
+
 
 int main(){
   // STATICALLY
@@ -286,8 +303,11 @@ int main(){
   // // print(merged_head_without_recursion);
   // Node * merged_head_with_recursion = merge_sorted_ll_with_recursion(head1, head2); // WITH RECURSION
   // print(merged_head_with_recursion);
-  Node* merge_sorted_head = merge_sort(head);
-  print(merge_sorted_head);
+  // Node* merge_sorted_head = merge_sort(head);
+  // print(merge_sorted_head);
+
+  Node* reversed_LL_head = reverse_LL(head);
+  print(reversed_LL_head);
 
 
 
