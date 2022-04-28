@@ -30,6 +30,13 @@ using namespace std;
 //   return head;
 // }
 
+// Pair class for Linked list to hold head and tail.
+class Pair{
+  public:
+    Node* head;
+    Node* tail;
+};
+
 
 // OPTIMIZED AS TIME COMPLEXITY IS O(n) here
 Node* takeInput(){
@@ -256,6 +263,33 @@ Node* reverse_LL(Node * h){
 
 
 
+// Here the time complexity is O(n). Which is optimized than the above one. Returning pair of head and tail
+Pair reverse_LL_2(Node * h){
+  Node * head = h;
+  if(head == NULL || head -> next == NULL){
+    Pair ans;
+    ans.head = head;
+    ans.tail = head;
+    return ans;
+  }
+
+  Pair smallAns = reverse_LL_2(head->next);
+  
+  smallAns.tail->next = head;
+  head->next = NULL;
+
+  Pair ans;
+  ans.head = smallAns.head;
+  ans.tail = head;
+  return ans;
+}
+
+Node * reverse_LL_better(Node* head){
+  return reverse_LL_2(head).head;
+}
+
+
+
 int main(){
   // STATICALLY
   // Node n1(1);
@@ -306,7 +340,10 @@ int main(){
   // Node* merge_sorted_head = merge_sort(head);
   // print(merge_sorted_head);
 
-  Node* reversed_LL_head = reverse_LL(head);
+  // Node* reversed_LL_head = reverse_LL(head);
+  // print(reversed_LL_head);
+
+  Node* reversed_LL_head = reverse_LL_better(head);
   print(reversed_LL_head);
 
 
