@@ -6,10 +6,10 @@ class StackUsingArray{
   int capacity;
 
   public:
-    StackUsingArray(int totalSize){
-      data = new int[totalSize];
+    StackUsingArray(){
+      data = new int[4];
       nextIndex = 0;
-      capacity = totalSize;    
+      capacity = 4;    
     }
 
     // returns the number of elements;
@@ -25,7 +25,16 @@ class StackUsingArray{
     // insert element at the top
     void push(int element){
       if(capacity == nextIndex){
-        cout<< "Stack is full"<<endl;
+        // cout<< "Stack is full"<<endl;
+        // return;
+
+        int *newData = new int[capacity*2];
+        for(int i=0; i<capacity; i++){
+          newData[i] = data[i];
+        }
+        capacity *= 2;
+        delete [] data;
+        data = newData;
       }
       data[nextIndex] = element;
       nextIndex++;
