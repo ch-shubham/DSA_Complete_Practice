@@ -32,22 +32,32 @@ int main(){
   
 
   // AFTER optimizing the push operation which do not handle the dynamic array thing
-  StackUsingArray s;
-  s.push(10);
-  s.push(20);
-  s.push(30);
-  s.push(40);
-  s.push(50); 
-  s.push(60); 
+  // StackUsingArray<int> s;
+  // s.push(10);
+  // s.push(20);
+  // s.push(30);
+  // s.push(40);
+  // s.push(50); 
+  // s.push(60); 
 
-  cout<<s.top()<<endl; // 60
-  cout<<s.pop()<<endl; // 60
-  cout<<s.pop()<<endl; // 50
-  cout<<s.pop()<<endl; // 40
-  cout<<s.top()<<endl; // 30
-  cout<<s.isEmpty()<<endl; // 0
-  cout<<s.pop()<<endl; // 30
-  cout<<s.pop()<<endl; // 20
-  cout<<s.pop()<<endl; // 10
-  cout<<s.isEmpty()<<endl; // 1  
+  // cout<<s.top()<<endl; // 60
+  // cout<<s.pop()<<endl; // 60
+  // cout<<s.pop()<<endl; // 50
+  // cout<<s.pop()<<endl; // 40
+  // cout<<s.top()<<endl; // 30
+  // cout<<s.isEmpty()<<endl; // 0
+  // cout<<s.pop()<<endl; // 30
+  // cout<<s.pop()<<endl; // 20
+  // cout<<s.pop()<<endl; // 10
+  // cout<<s.isEmpty()<<endl; // 1    
+
+  StackUsingArray<char> s2;
+  s2.push(65);
+  s2.push('B');
+  s2.push('C');
+
+  cout<<s2.isEmpty()<<endl; // 0
+  cout<<s2.pop()<<" " <<s2.pop()<< " " << s2.pop()<<endl; // C B A
+  cout<<s2.isEmpty()<<endl; // 1
+
 }

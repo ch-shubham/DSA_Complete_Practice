@@ -1,13 +1,14 @@
 #include<climits>
 
+template <typename T>
 class StackUsingArray{
-  int *data;
+  T *data;
   int nextIndex;
   int capacity;
 
   public:
     StackUsingArray(){
-      data = new int[4];
+      data = new T[4];
       nextIndex = 0;
       capacity = 4;    
     }
@@ -23,12 +24,12 @@ class StackUsingArray{
     }
 
     // insert element at the top
-    void push(int element){
+    void push(T element){
       if(capacity == nextIndex){
         // cout<< "Stack is full"<<endl;
         // return;
 
-        int *newData = new int[capacity*2];
+        T *newData = new T[capacity*2];
         for(int i=0; i<capacity; i++){
           newData[i] = data[i];
         }
@@ -41,20 +42,20 @@ class StackUsingArray{
     }
 
     // delete the element
-    int pop(){
+    T pop(){
       if(isEmpty()){
         cout<<"Stack is Empty"<<endl;
-        return INT_MIN;  // return type has to be int so just as an indication we are returning INT_MIN, no particular reason.
+        return 0;  // return type has to be int so just as an indication we are returning INT_MIN, no particular reason.
       }
       nextIndex--;
       return data[nextIndex];
     }
 
     // returns the topmost element;
-    int top(){  
+    T top(){  
       if(isEmpty()){
         cout<<"Stack is empty"<<endl;
-        return INT_MIN;
+        return 0;
       }
       return data[nextIndex-1];
     }
