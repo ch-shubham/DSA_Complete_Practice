@@ -302,6 +302,19 @@ Node* reverse_LL_3(Node * h){
   return smallAns;
 }
 
+Node *reverse__LL_iteratively(Node * head){
+  Node *current = head;
+  Node *prev = NULL;
+  Node *n = NULL;
+  while(current != NULL){
+    n = current->next;
+    current->next = prev;
+    prev = current;
+    current = n;
+  }
+  return prev;
+}
+
 int main(){
   // STATICALLY
   // Node n1(1);
@@ -358,7 +371,10 @@ int main(){
   // Node* reversed_LL_head = reverse_LL_better(head);
   // print(reversed_LL_head);
 
-  Node* reversed_LL_head = reverse_LL_3(head);
+  // Node* reversed_LL_head = reverse_LL_3(head);
+  // print(reversed_LL_head);
+
+  Node* reversed_LL_head = reverse__LL_iteratively(head);
   print(reversed_LL_head);
 
 
