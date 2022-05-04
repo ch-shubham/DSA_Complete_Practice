@@ -36,14 +36,14 @@ class StackUsingLinkedList{
     }
 
     T pop(){
+      if(isEmpty()){
+        return 0;
+      }
       Node<T>* temp = head;
       head = head-> next;
       T poppedElement = temp->data;
       delete temp;
       size--;
-      if(head == NULL){
-        return 0;
-      }
       return poppedElement;
     }
 
