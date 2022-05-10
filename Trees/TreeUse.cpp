@@ -34,14 +34,38 @@ void printTree(TreeNode<int> *root){
   }
 }
 
+TreeNode<int> * takeInput(){
+  cout<<"Enter the data"<<endl;
+  int rootData;
+  cin>>rootData;
+
+  TreeNode<int> *root = new TreeNode<int>(rootData);
+
+  int n;
+  cout<<"enter the number of children";
+  cin>>n;
+
+  for(int i = 0; i < n; i++){
+    TreeNode<int> *child = takeInput();
+    root->children.push_back(child);
+  }
+  return root;
+}
+
 int main(){ 
-  TreeNode<int> *root = new TreeNode<int>(1);
-  TreeNode<int> *node1 = new TreeNode<int>(2);
-  TreeNode<int> *node2 = new TreeNode<int>(3);
+  // TreeNode<int> *root = new TreeNode<int>(1);
+  // TreeNode<int> *node1 = new TreeNode<int>(2);
+  // TreeNode<int> *node2 = new TreeNode<int>(3);
 
-  root->children.push_back(node1);
-  root->children.push_back(node2);
+  // root->children.push_back(node1);
+  // root->children.push_back(node2);
 
+  // printTree(root);
+
+  TreeNode<int>* root = takeInput();
   printTree(root);
+
   // TODO: Delete the tree. 
+
+
 }
