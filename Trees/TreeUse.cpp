@@ -150,6 +150,26 @@ int numLeafNodes(TreeNode<int> * root){
   return sum;
 }
 
+void preOrder(TreeNode<int> *root){
+  if(root == NULL){
+    return;
+  }
+  cout<<root->data<<" ";
+  for(int i = 0; i < root->children.size(); i++){
+    preOrder(root->children[i]);
+  }
+}
+
+void postOrder(TreeNode<int> *root){
+  if(root == NULL){
+    return;
+  }
+  for(int i = 0; i < root->children.size(); i++){
+    postOrder(root->children[i]);
+  }  
+  cout<<root->data<<" ";
+}
+
 // Below is just the imput to avoid entering all the inputs again and again.
 //  1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 int main(){ 
@@ -169,8 +189,10 @@ int main(){
   // printTree(root);
   // printTreeLevelWise(root);
   // printAtLevelK(root, 2);
-  cout<<numLeafNodes(root)<<endl;
-
+  // cout<<numLeafNodes(root)<<endl;
+  // preOrder(root);
+  postOrder(root);
+  cout<<endl;
   // TODO: Delete the tree. 
 
 
