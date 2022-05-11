@@ -170,6 +170,19 @@ void postOrder(TreeNode<int> *root){
   cout<<root->data<<" ";
 }
 
+// TODO: Check if its working. BUt its too imp as we have destructor.
+// void deleteTree(TreeNode<int> * root){
+//   // if(root == NULL){
+//   //   return;
+//   // }
+
+//   for(int i =0; i<root->children.size(); i++){
+//     cout<<"Deleting"<<endl;
+//     deleteTree(root->children[i]);
+//   }
+//   delete root;
+// }
+
 // Below is just the imput to avoid entering all the inputs again and again.
 //  1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 int main(){ 
@@ -191,9 +204,9 @@ int main(){
   // printAtLevelK(root, 2);
   // cout<<numLeafNodes(root)<<endl;
   // preOrder(root);
-  postOrder(root);
-  cout<<endl;
-  // TODO: Delete the tree. 
-
+  // postOrder(root);
+  // cout<<endl;
+  // deleteTree(root); 
+  delete root;
 
 }
