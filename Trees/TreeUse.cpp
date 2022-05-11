@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 
 using namespace std;
 
@@ -52,6 +53,36 @@ TreeNode<int> * takeInput(){
   return root;
 }
 
+TreeNode<int>* takeInputLevelWise(){
+  int rootData;
+  cout<<"Enter Root Data"<<endl;
+  cin>>rootData;
+  TreeNode<int> * root = new TreeNode<int>(rootData);
+
+  queue<TreeNode<int>*> pendingNodes;
+  pendingNodes.push(root);
+  while(pendingNodes.size() != 0){
+    TreeNode<int>* front = pendingNodes.front();
+    pendingNodes.pop();
+    cout<<"Enter number of children for "<<front->data<<endl;
+    int numChild;
+    cin>>numChild;
+    for(int i = 0; i < numChild; i++){
+      int childData;
+      cout<<"Enter the data for "<<i<<"th child of" <<front->data<<endl;
+      cin>>childData;
+      TreeNode<int>* child = new TreeNode<int>(childData);
+      front->children.push_back(child);
+      pendingNodes.push(child);
+    }    
+  } 
+  return root;
+}
+
+
+
+// Below is just the imput to avoid entering all the inputs again and again.
+//  1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 int main(){ 
   // TreeNode<int> *root = new TreeNode<int>(1);
   // TreeNode<int> *node1 = new TreeNode<int>(2);
@@ -62,7 +93,8 @@ int main(){
 
   // printTree(root);
 
-  TreeNode<int>* root = takeInput();
+  // TreeNode<int>* root = takeInput();
+  TreeNode<int>* root = takeInputLevelWise();
   printTree(root);
 
   // TODO: Delete the tree. 
