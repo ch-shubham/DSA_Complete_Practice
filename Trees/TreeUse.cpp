@@ -95,6 +95,17 @@ void printTreeLevelWise(TreeNode<int> * root){
   }
 }
 
+int numNodes(TreeNode<int>* root){
+  if(root == NULL){ // edge case, not the base case 
+    return 0;
+  }
+  int ans = 1;
+  
+  for(int i = 0; i < root->children.size(); i++){
+    ans+=numNodes(root->children[i]);
+  }
+  return ans;
+}
 
 // Below is just the imput to avoid entering all the inputs again and again.
 //  1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
@@ -110,8 +121,9 @@ int main(){
 
   // TreeNode<int>* root = takeInput();
   TreeNode<int>* root = takeInputLevelWise();
+  cout<<"Number of Nodes : "<<numNodes(root)<<endl;
   // printTree(root);
-  printTreeLevelWise(root);
+  // printTreeLevelWise(root);
 
   // TODO: Delete the tree. 
 
