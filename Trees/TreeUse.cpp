@@ -79,6 +79,21 @@ TreeNode<int>* takeInputLevelWise(){
   return root;
 }
 
+void printTreeLevelWise(TreeNode<int> * root){
+  queue<TreeNode<int>*> pendingNodes; 
+  pendingNodes.push(root);
+  // cout<<root->data<<" : ";
+  while(!pendingNodes.empty()){
+    TreeNode<int>* front = pendingNodes.front();
+    pendingNodes.pop();
+    cout<<front->data<<" : "; 
+    for(int i = 0; i < front->children.size(); i++){
+      pendingNodes.push(front->children[i]);
+      cout<<front->children[i]->data<<" , ";
+    }
+    cout<<endl;
+  }
+}
 
 
 // Below is just the imput to avoid entering all the inputs again and again.
@@ -95,7 +110,8 @@ int main(){
 
   // TreeNode<int>* root = takeInput();
   TreeNode<int>* root = takeInputLevelWise();
-  printTree(root);
+  // printTree(root);
+  printTreeLevelWise(root);
 
   // TODO: Delete the tree. 
 
