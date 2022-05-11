@@ -136,6 +136,20 @@ void printAtLevelK(TreeNode<int> * root, int k){
   }
 }
 
+int numLeafNodes(TreeNode<int> * root){
+  if(root == NULL){
+    return 0;
+  }
+  if(root->children.size() == 0){
+    return 1;
+  }
+  int sum = 0;
+  for(int i = 0; i < root->children.size(); i++){
+    sum += numLeafNodes(root->children[i]);
+  }
+  return sum;
+}
+
 // Below is just the imput to avoid entering all the inputs again and again.
 //  1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 int main(){ 
@@ -154,7 +168,8 @@ int main(){
   // cout<<"Height of Tree : "<<heightOfTree(root)<<endl;
   // printTree(root);
   // printTreeLevelWise(root);
-  printAtLevelK(root, 2);
+  // printAtLevelK(root, 2);
+  cout<<numLeafNodes(root)<<endl;
 
   // TODO: Delete the tree. 
 
