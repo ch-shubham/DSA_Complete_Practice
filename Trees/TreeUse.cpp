@@ -123,6 +123,19 @@ int heightOfTree(TreeNode<int> * root){
   return heightValue + 1; 
 }
 
+void printAtLevelK(TreeNode<int> * root, int k){
+  if(root == NULL){
+    return;
+  }
+  if(k == 0){
+    cout<<root->data<<endl;
+    return;
+  }
+  for(int i = 0; i<root->children.size(); i++){
+    printAtLevelK(root->children[i], k-1);
+  }
+}
+
 // Below is just the imput to avoid entering all the inputs again and again.
 //  1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 int main(){ 
@@ -138,9 +151,10 @@ int main(){
   // TreeNode<int>* root = takeInput();
   TreeNode<int>* root = takeInputLevelWise();
   // cout<<"Number of Nodes : "<<numNodes(root)<<endl;
-  cout<<"Height of Tree : "<<heightOfTree(root)<<endl;
+  // cout<<"Height of Tree : "<<heightOfTree(root)<<endl;
   // printTree(root);
   // printTreeLevelWise(root);
+  printAtLevelK(root, 2);
 
   // TODO: Delete the tree. 
 
