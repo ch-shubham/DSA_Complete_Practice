@@ -1,5 +1,7 @@
 #include<iostream>
 #include<queue>
+#include<algorithm>
+#include<climits>
 
 using namespace std;
 
@@ -107,6 +109,20 @@ int numNodes(TreeNode<int>* root){
   return ans;
 }
 
+int heightOfTree(TreeNode<int> * root){
+  if(root == NULL) {
+    return 0;
+  }
+  // if(root->children.size() == 0){
+  //   return 1;
+  // }
+  int heightValue = 0; 
+  for(int i = 0; i < root->children.size(); i++){
+    heightValue = max(heightValue, heightOfTree(root->children[i]));
+  }
+  return heightValue + 1; 
+}
+
 // Below is just the imput to avoid entering all the inputs again and again.
 //  1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 int main(){ 
@@ -121,7 +137,8 @@ int main(){
 
   // TreeNode<int>* root = takeInput();
   TreeNode<int>* root = takeInputLevelWise();
-  cout<<"Number of Nodes : "<<numNodes(root)<<endl;
+  // cout<<"Number of Nodes : "<<numNodes(root)<<endl;
+  cout<<"Height of Tree : "<<heightOfTree(root)<<endl;
   // printTree(root);
   // printTreeLevelWise(root);
 
