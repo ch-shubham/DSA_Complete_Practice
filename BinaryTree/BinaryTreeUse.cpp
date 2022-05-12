@@ -20,13 +20,30 @@ void printTreeRecursively(BinaryTreeNode<int> * root){
   printTreeRecursively(root->right);
 }
 
-int main(){
-  BinaryTreeNode<int> * root = new BinaryTreeNode<int>(1);
-  BinaryTreeNode<int> * node1 = new BinaryTreeNode<int>(2);
-  BinaryTreeNode<int> * node2 = new BinaryTreeNode<int>(3);
+BinaryTreeNode<int>* takeInputRecursive(){
+  int rootData;
+  cout<<"Enter the Data"<<endl;
+  cin>>rootData;
+  if(rootData == -1){
+    return NULL;
+  }
+  BinaryTreeNode<int> * root = new BinaryTreeNode<int>(rootData);
+  BinaryTreeNode<int> * leftChild = takeInputRecursive();
+  BinaryTreeNode<int> * rightChild = takeInputRecursive();
+  root->left = leftChild;
+  root->right = rightChild;
+  return root;
+}
 
-  root -> left = node1;
-  root -> right = node2;
+int main(){
+  // BinaryTreeNode<int> * root = new BinaryTreeNode<int>(1);
+  // BinaryTreeNode<int> * node1 = new BinaryTreeNode<int>(2);
+  // BinaryTreeNode<int> * node2 = new BinaryTreeNode<int>(3);
+
+  // root -> left = node1;
+  // root -> right = node2;
+
+  BinaryTreeNode<int>* root = takeInputRecursive();
 
   printTreeRecursively(root);
 
