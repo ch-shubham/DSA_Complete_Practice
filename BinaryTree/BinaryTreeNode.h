@@ -1,5 +1,5 @@
 template <typename T>
-class BinaryTreeNode(){
+class BinaryTreeNode{
   public:
     T data;
     BinaryTreeNode *left;
@@ -15,4 +15,4 @@ class BinaryTreeNode(){
       delete left; // delete NULL will do nothing so no need to check if left or right is NULL or not.
       delete right;  // delete NULL will do nothing so no need to check if left or right is NULL or not.
     }
-}
+};
