@@ -315,6 +315,17 @@ Node *reverse__LL_iteratively(Node * head){
   return prev;
 }
 
+Node* reverse_k_nodes(Node* head, int k){
+  if(head == NULL || head -> next == NULL || k == 1){
+    return head;
+  }
+  Node * smallAns = reverse_k_nodes(head->next, k-1);
+  Node * temp = head->next->next;
+  head->next->next = head;
+  head->next = temp;
+  return smallAns;
+}
+
 int main(){
   // STATICALLY
   // Node n1(1);
@@ -329,6 +340,7 @@ int main(){
   // n3.next = &n4;
   // n4.next = &n5;
 
+  cout<<"Enter the Linked List, to end enter -1"<<endl;
   Node* head = takeInput();
   // Node* head1 = takeInput();
   // Node* head2 = takeInput();
@@ -374,8 +386,12 @@ int main(){
   // Node* reversed_LL_head = reverse_LL_3(head);
   // print(reversed_LL_head);
 
-  Node* reversed_LL_head = reverse__LL_iteratively(head);
-  print(reversed_LL_head);
+  // Node* reversed_LL_head = reverse__LL_iteratively(head);
+  cout<<"Enter the number of nodes to reverse"<<endl;
+  int k;
+  cin>>k;
+  Node* reversed_LL_k_nodes_head = reverse_k_nodes(head, k);
+  print(reversed_LL_k_nodes_head);
 
 
 
