@@ -1,5 +1,5 @@
 #include<iostream>
-
+#include<queue>
 using namespace std;
 
 #include "BinaryTreeNode.h"
@@ -35,6 +35,43 @@ BinaryTreeNode<int>* takeInputRecursive(){
   return root;
 }
 
+BinaryTreeNode<int> * takeInputLevelWise(){
+  int rootData;
+  cout<<"Enter Root Data"<<endl;
+  cin>>rootData;
+  if(rootData == -1){
+    return NULL;
+  }
+
+  BinaryTreeNode<int> * root = new BinaryTreeNode<int>(rootData);
+  queue<BinaryTreeNode<int>*> pendingNodes;
+  pendingNodes.push(root);
+  while(pendingNodes.size() != 0){
+    BinaryTreeNode<int> *front = pendingNodes.front();
+    pendingNodes.pop();
+    cout<<"Enter the left child of: "<< front->data<<endl;
+    int leftChildData;
+    cin>>leftChildData;
+    if(leftChildData != -1){
+      BinaryTreeNode<int>* child = new BinaryTreeNode<int>(leftChildData);
+      front->left = child;
+      pendingNodes.push(child); 
+    }
+
+    cout<<"Enter the right child of: "<< front->data<<endl;
+    int rightChildData;
+    cin>>rightChildData;
+    if(rightChildData != -1){
+      BinaryTreeNode<int>* child = new BinaryTreeNode<int>(rightChildData);
+      front->right = child;
+      pendingNodes.push(child); 
+    }
+  }
+  return root;
+}
+
+// 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
+// 1 2 3 4 5 6 7 -1 -1 8 9 -1 -1 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
   // BinaryTreeNode<int> * root = new BinaryTreeNode<int>(1);
   // BinaryTreeNode<int> * node1 = new BinaryTreeNode<int>(2);
@@ -43,7 +80,8 @@ int main(){
   // root -> left = node1;
   // root -> right = node2;
 
-  BinaryTreeNode<int>* root = takeInputRecursive();
+  // BinaryTreeNode<int>* root = takeInputRecursive();
+  BinaryTreeNode<int>* root = takeInputLevelWise();
 
   printTreeRecursively(root);
 
