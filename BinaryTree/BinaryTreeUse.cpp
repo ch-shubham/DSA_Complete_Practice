@@ -218,6 +218,21 @@ int diameterBetter(BinaryTreeNode<int> * root){
   return ans.second; // diameter from the above returned function
 }
 
+BinaryTreeNode<int> * searchInBST(BinaryTreeNode<int>* root, int elementToSearch){
+  if(root == NULL){
+    return NULL;
+  }
+  if(root->data == elementToSearch){
+    return root;
+  }
+  if(elementToSearch > root->data){
+    return searchInBST(root->right, elementToSearch);
+  }
+  else{
+    return searchInBST(root->left, elementToSearch);
+  }
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -245,8 +260,12 @@ int main(){
   // postorder(root);
   // cout<<endl;
   // cout<<"Number of Nodes: " << numNodes(root)<<endl;
-  cout << diameter(root)<<endl;
-  cout << diameterBetter(root)<<endl;
+  // cout << diameter(root)<<endl;
+  // cout << diameterBetter(root)<<endl;
 
+  // give input as : 4 2 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1
+  BinaryTreeNode<int>* searchedNode = searchInBST(root, 6); // for example we are taking 6 hard code value
+  cout<<"After Searching the Node will be something like:"<<endl;
+  printTreeLevelWise(searchedNode); // expected is 6: L5R7      5:     7:  
   delete root;
 }
