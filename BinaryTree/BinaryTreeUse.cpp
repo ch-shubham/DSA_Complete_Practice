@@ -233,6 +233,21 @@ BinaryTreeNode<int> * searchInBST(BinaryTreeNode<int>* root, int elementToSearch
   }
 }
 
+void printBetweenK1andK2(BinaryTreeNode<int>* root, int k1, int k2){
+  if(root == NULL){
+    return;
+  }
+  if(root->data >= k1 && root->data <= k2){
+    cout<<root->data<<endl;
+  }
+  if(root->data > k1){
+    printBetweenK1andK2(root->left, k1, k2);
+  }
+  if(root->data < k2){
+    printBetweenK1andK2(root->right, k1, k2);
+  }
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -252,7 +267,7 @@ int main(){
   // BinaryTreeNode<int>* root = buildTree(in, pre, 9);
 
   // printTreeRecursively(root);
-  printTreeLevelWise(root);
+  // printTreeLevelWise(root);
   // inorder(root);
   // cout<<endl;
   // preorder(root);
@@ -264,8 +279,11 @@ int main(){
   // cout << diameterBetter(root)<<endl;
 
   // give input as : 4 2 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1
-  BinaryTreeNode<int>* searchedNode = searchInBST(root, 6); // for example we are taking 6 hard code value
-  cout<<"After Searching the Node will be something like:"<<endl;
-  printTreeLevelWise(searchedNode); // expected is 6: L5R7      5:     7:  
+  // BinaryTreeNode<int>* searchedNode = searchInBST(root, 6); // for example we are taking 6 hard code value
+  // cout<<"After Searching the Node will be something like:"<<endl;
+  // printTreeLevelWise(searchedNode); // expected is 6: L5R7      5:     7:  
+  
+  // 4 2 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1
+  printBetweenK1andK2(root, 2, 6);
   delete root;
 }
