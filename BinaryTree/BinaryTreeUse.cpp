@@ -186,6 +186,37 @@ int diameter(BinaryTreeNode<int>* root){
   return max(option1, max(option2, option3));
 }
 
+// helper function to below mention diameterBetter function
+// returns the height and diameter at the same time.
+pair<int, int> heightDiameter(BinaryTreeNode<int> * root){
+  // we are putting height in first part of pair and diameter on 2nd part.
+  if(root == NULL){
+    pair<int, int> p;
+    p.first = 0; // height = 0
+    p.second = 0; // diameter = 0
+    return p;
+  }
+  pair<int, int> leftAns = heightDiameter(root->left);
+  pair<int, int> rightAns = heightDiameter(root->right);
+  int ld = leftAns.second; // left diameter
+  int lh = leftAns.first; // left height
+  int rd = rightAns.second; // right diameter
+  int rh = rightAns.first; // right height
+
+  int height = 1 + max(lh, rh);
+  int diameter = max(lh + rh, max(ld, rd));
+  pair<int, int> p;
+  p.first = height;
+  p.second = diameter;
+  return p;
+}
+
+
+// This function is a better approach than the above one. This approach takes O(n);
+int diameterBetter(BinaryTreeNode<int> * root){
+  pair<int, int> ans = heightDiameter(root);
+  return ans.second; // diameter from the above returned function
+}
 
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
@@ -215,6 +246,7 @@ int main(){
   // cout<<endl;
   // cout<<"Number of Nodes: " << numNodes(root)<<endl;
   cout << diameter(root)<<endl;
+  cout << diameterBetter(root)<<endl;
 
   delete root;
 }
