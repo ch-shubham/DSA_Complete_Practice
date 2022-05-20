@@ -100,8 +100,35 @@ void printTreeLevelWise(BinaryTreeNode<int>* root){
   }
 }
 
+void inorder(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return;
+  }
+  inorder(root->left);
+  cout<<root->data<<" ";
+  inorder(root->right);
+}
+
+void preorder(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return;
+  }
+  cout<<root->data<<" ";
+  preorder(root->left);
+  preorder(root->right);
+}
+
+void postorder(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return;
+  }
+  postorder(root->left);
+  postorder(root->right);
+  cout<<root->data<<" ";
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
-// 1 2 3 4 5 6 7 -1 -1 8 9 -1 -1 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
+// 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
   // BinaryTreeNode<int> * root = new BinaryTreeNode<int>(1);
   // BinaryTreeNode<int> * node1 = new BinaryTreeNode<int>(2);
@@ -114,7 +141,12 @@ int main(){
   BinaryTreeNode<int>* root = takeInputLevelWise();
 
   // printTreeRecursively(root);
-  printTreeLevelWise(root);
+  // printTreeLevelWise(root);
+  inorder(root);
+  cout<<endl;
+  preorder(root);
+  cout<<endl;
+  postorder(root);
   cout<<endl;
   // cout<<"Number of Nodes: " << numNodes(root)<<endl;
 
