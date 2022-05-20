@@ -164,6 +164,29 @@ BinaryTreeNode<int> * buildTree(int* in, int * pre, int size){
   return buildTreeHelper(in, pre, 0, size-1, 0, size-1); // returns the tree from the function defined above.
 }
 
+
+// function to find the height of the binary tree
+int height(BinaryTreeNode<int> * root) {
+  if(root == NULL){
+    return 0;
+  }
+  return 1 + max(height(root->left),height(root->right));
+}
+
+// diameter is the maximum difference between two nodes.
+// Naive approach (Not very good to use). Here the time complexity depends on the height of the tree that is: O(n*h) so if we have one sided tree it can lead to O(n^2) which is very bad
+int diameter(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return 0;
+  }
+  // height function is defined above.
+  int option1 = height(root->left) + height(root->right);
+  int option2 = diameter(root->left);
+  int option3 = diameter(root->right);
+  return max(option1, max(option2, option3));
+}
+
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -175,22 +198,23 @@ int main(){
   // root -> right = node2;
 
   // BinaryTreeNode<int>* root = takeInputRecursive();
-  int in[] = { 4,2,5,1,8,6,9,3,7 }; 
-  int pre[] = { 1,2,4,5,3,6,8,9,7 }; 
+  // int in[] = { 4,2,5,1,8,6,9,3,7 }; 
+  // int pre[] = { 1,2,4,5,3,6,8,9,7 }; 
   
 
-  // BinaryTreeNode<int>* root = takeInputLevelWise();
-  BinaryTreeNode<int>* root = buildTree(in, pre, 9);
+  BinaryTreeNode<int>* root = takeInputLevelWise();
+  // BinaryTreeNode<int>* root = buildTree(in, pre, 9);
 
   // printTreeRecursively(root);
-  // printTreeLevelWise(root);
-  inorder(root);
-  cout<<endl;
-  preorder(root);
-  cout<<endl;
+  printTreeLevelWise(root);
+  // inorder(root);
+  // cout<<endl;
+  // preorder(root);
+  // cout<<endl;
   // postorder(root);
   // cout<<endl;
   // cout<<"Number of Nodes: " << numNodes(root)<<endl;
+  cout << diameter(root)<<endl;
 
   delete root;
 }
