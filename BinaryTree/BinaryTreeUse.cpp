@@ -127,6 +127,43 @@ void postorder(BinaryTreeNode<int>* root){
   cout<<root->data<<" ";
 }
 
+// inS, inE, preS, preE are all indexes and not the actual array or values
+// *in and *pre are the arrays of inorder and preOrder
+BinaryTreeNode<int> *buildTreeHelper(int *in, int *pre, int inS, int inE, int preS, int preE){
+  if(inS > inE){
+    return NULL;
+  }
+  int rootData = pre[preS]; // it should not be pre[0] as in recurive call it will always pick the first element of the array.
+  int rootIndex = -1;
+  for(int i = inS; i <= inE; i++){
+    if(in[i] == rootData){
+      rootIndex = i;
+      break;
+    }
+  }
+  int lInS = inS;
+  int lInE = rootIndex - 1;
+  int lpreS = preS + 1;
+  int lpreE = lInE - lInS + lpreS;
+  int rpreS = lpreE + 1;
+  int rpreE = preE;
+  int rInS = rootIndex + 1;
+  int rInE = inE;
+
+  BinaryTreeNode<int> * root = new BinaryTreeNode<int>(rootData);
+  root->left = buildTreeHelper(in, pre, lInS, lInE, lpreS, lpreE);
+  root->right = buildTreeHelper(in, pre, rInS, rInE, rpreS, rpreE);
+
+  return root;
+
+}
+
+// The only condition is the elements in the array should not be repeated else it will be difficult to find root.
+// if elements are repeated then there must be some other condition specified in the ques.
+BinaryTreeNode<int> * buildTree(int* in, int * pre, int size){
+  return buildTreeHelper(in, pre, 0, size-1, 0, size-1); // returns the tree from the function defined above.
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -138,7 +175,12 @@ int main(){
   // root -> right = node2;
 
   // BinaryTreeNode<int>* root = takeInputRecursive();
-  BinaryTreeNode<int>* root = takeInputLevelWise();
+  int in[] = { 4,2,5,1,8,6,9,3,7 }; 
+  int pre[] = { 1,2,4,5,3,6,8,9,7 }; 
+  
+
+  // BinaryTreeNode<int>* root = takeInputLevelWise();
+  BinaryTreeNode<int>* root = buildTree(in, pre, 9);
 
   // printTreeRecursively(root);
   // printTreeLevelWise(root);
@@ -146,8 +188,8 @@ int main(){
   cout<<endl;
   preorder(root);
   cout<<endl;
-  postorder(root);
-  cout<<endl;
+  // postorder(root);
+  // cout<<endl;
   // cout<<"Number of Nodes: " << numNodes(root)<<endl;
 
   delete root;
