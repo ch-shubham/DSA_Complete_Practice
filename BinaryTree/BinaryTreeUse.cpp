@@ -77,6 +77,29 @@ int numNodes(BinaryTreeNode<int>* root){
   return (1 + numNodes(root->left) + numNodes(root->right));
 }
 
+void printTreeLevelWise(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return;
+  }
+  queue<BinaryTreeNode<int>*> pendingNodes;
+  pendingNodes.push(root);
+  // while(!pendingNodes.empty()){
+  while(pendingNodes.size() != 0){
+    BinaryTreeNode<int>* front = pendingNodes.front();
+    pendingNodes.pop();
+    cout<<front->data<<" : ";
+    if(front->left != NULL){
+      pendingNodes.push(front->left);
+      cout<<"L"<<front->left->data;
+    }
+    if(front->right != NULL){
+      pendingNodes.push(front->right);
+      cout<<"R"<<front->right->data;
+    }
+    cout<<endl;
+  }
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 8 9 -1 -1 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -90,9 +113,10 @@ int main(){
   // BinaryTreeNode<int>* root = takeInputRecursive();
   BinaryTreeNode<int>* root = takeInputLevelWise();
 
-  printTreeRecursively(root);
+  // printTreeRecursively(root);
+  printTreeLevelWise(root);
   cout<<endl;
-  cout<<"Number of Nodes: " << numNodes(root)<<endl;
+  // cout<<"Number of Nodes: " << numNodes(root)<<endl;
 
   delete root;
 }
