@@ -70,6 +70,13 @@ BinaryTreeNode<int> * takeInputLevelWise(){
   return root;
 }
 
+int numNodes(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return 0; 
+  }
+  return (1 + numNodes(root->left) + numNodes(root->right));
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 8 9 -1 -1 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -84,6 +91,8 @@ int main(){
   BinaryTreeNode<int>* root = takeInputLevelWise();
 
   printTreeRecursively(root);
+  cout<<endl;
+  cout<<"Number of Nodes: " << numNodes(root)<<endl;
 
   delete root;
 }
