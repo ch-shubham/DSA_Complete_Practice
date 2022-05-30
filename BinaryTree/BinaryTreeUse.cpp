@@ -305,8 +305,22 @@ IsBSTReturn isBST2(BinaryTreeNode<int> * root){
   return output;
 }
 
+// Top to Bottom approach. O(N)
+bool isBST3(BinaryTreeNode<int> *root, int min = INT_MIN, int max = INT_MAX){
+  if(root == NULL){
+    return true;
+  }
+  if(root->data > max || root->data < min){
+    return false;
+  }
+  bool isLeftOK = isBST3(root->left, min, root->data - 1);
+  bool isRightOK = isBST3(root->right, root->data, max);
+  return isLeftOK && isRightOK;
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
+// 4 3 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1 --> BST tree sample input to check if the tree is BST or NOT. This input is a BST.
 int main(){
   // BinaryTreeNode<int> * root = new BinaryTreeNode<int>(1);
   // BinaryTreeNode<int> * node1 = new BinaryTreeNode<int>(2);
@@ -321,8 +335,9 @@ int main(){
   
 
   BinaryTreeNode<int>* root = takeInputLevelWise();
-  IsBSTReturn isTreeBST = isBST2(root);
-  cout<<"Given Tree is BST ? "<<isTreeBST.isBST<<endl;
+  // IsBSTReturn isTreeBST = isBST2(root);
+  // cout<<"Given Tree is BST ? "<<isTreeBST.isBST<<endl;
+  cout<<"Given Tree is BST ? "<<isBST3(root)<<endl;
   // BinaryTreeNode<int>* root = buildTree(in, pre, 9);
 
   // printTreeRecursively(root);
