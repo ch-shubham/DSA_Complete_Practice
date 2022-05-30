@@ -5,6 +5,13 @@ using namespace std;
 
 #include "BinaryTreeNode.h"
 
+class IsBSTReturn{
+  public:
+    bool isBST;
+    int minimum;
+    int maximum;
+};
+
 void printTreeRecursively(BinaryTreeNode<int> * root){
   if(root == NULL){
     return;
@@ -276,6 +283,28 @@ bool isBST(BinaryTreeNode<int>* root){
   return output;
 }
 
+// we created a custom return type, though Pair<Pair<int,int>,bool> could have also been used. Here the T.C is O(N).
+IsBSTReturn isBST2(BinaryTreeNode<int> * root){
+  if(root == NULL){
+    IsBSTReturn output; // class defined above.
+    output.isBST = true;
+    output.minimum = INT_MAX; //right side has to be max so that if root have no right child then also it should treat the tree as a BST. variable is minimum but looking at the right side we should return maximum ti handle no child scenerio,
+    output.maximum = INT_MIN; // same as right side, we should return INT_MIN from left side if no child found.
+    return output;
+  }
+
+  IsBSTReturn leftOutput = isBST2(root->left);
+  IsBSTReturn rightOutput = isBST2(root->right);
+  int overallMinimum = min(root->data, min(leftOutput.minimum, rightOutput.minimum));
+  int overallMaximum = max(root->data, max(leftOutput.maximum, rightOutput.maximum));
+  bool isBSTFinal =(root->data > leftOutput.maximum) && (root->data <= rightOutput.minimum) && leftOutput.isBST && rightOutput.isBST;
+  IsBSTReturn output;
+  output.isBST = isBSTFinal;
+  output.maximum = overallMaximum;
+  output.minimum = overallMinimum;
+  return output;
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -292,7 +321,8 @@ int main(){
   
 
   BinaryTreeNode<int>* root = takeInputLevelWise();
-  cout<<"Given Tree is BST ? "<<isBST(root)<<endl;
+  IsBSTReturn isTreeBST = isBST2(root);
+  cout<<"Given Tree is BST ? "<<isTreeBST.isBST<<endl;
   // BinaryTreeNode<int>* root = buildTree(in, pre, 9);
 
   // printTreeRecursively(root);
