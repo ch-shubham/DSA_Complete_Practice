@@ -1,5 +1,6 @@
 #include<iostream>
 #include<queue>
+#include<climits> // for INT_MAX and INT_MIN
 using namespace std;
 
 #include "BinaryTreeNode.h"
@@ -248,6 +249,33 @@ void printBetweenK1andK2(BinaryTreeNode<int>* root, int k1, int k2){
   }
 }
 
+// function to find minimum of the given tree node
+int minimum(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return INT_MAX;
+  }
+  return min(root->data, min(minimum(root->left), minimum(root->right)));
+}
+
+// function to find maximum of the given tree node
+int maximum(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return INT_MIN;
+  }
+  return max(root->data, max(maximum(root->left), maximum(root->right)));
+}
+
+// checking if the given tree is BST or not. But this is not the optimized code as it takes O(N^2)or O(number_of_nodes*height) as minimum and maximum is called twice on each recursive call. 
+bool isBST(BinaryTreeNode<int>* root){
+  if(root == NULL){
+    return true;
+  }
+  int leftMax = maximum(root->left);
+  int rightMin = minimum(root->right);
+  bool output = (root->data > leftMax) && (root->data <= rightMin) && isBST(root->right) && isBST(root->left);
+  return output;
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 int main(){
@@ -264,6 +292,7 @@ int main(){
   
 
   BinaryTreeNode<int>* root = takeInputLevelWise();
+  cout<<"Given Tree is BST ? "<<isBST(root)<<endl;
   // BinaryTreeNode<int>* root = buildTree(in, pre, 9);
 
   // printTreeRecursively(root);
@@ -284,6 +313,6 @@ int main(){
   // printTreeLevelWise(searchedNode); // expected is 6: L5R7      5:     7:  
   
   // 4 2 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1
-  printBetweenK1andK2(root, 2, 6);
+  // printBetweenK1andK2(root, 2, 6);
   delete root;
 }
