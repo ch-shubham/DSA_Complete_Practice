@@ -341,11 +341,33 @@ Node* reverse_k_nodes(Node* head, int k){
   if(head == NULL || head -> next == NULL || k == 1){
     return head;
   }
+  Node* temp2 = head;
+  int count = 0;
+  while(temp2!=NULL){
+    temp2 = temp2->next;
+    count++;
+  }
+  // if nodes are less than k dont reverse. Just return the original LL. This condition is optional.
+  if(count < k){
+    return head;
+  }
   Node * smallAns = reverse_k_nodes(head->next, k-1);
   Node * temp = head->next->next;
   head->next->next = head;
   head->next = temp;
   return smallAns;
+}
+
+Node* reverseKGroup(Node* head, int k) {
+  Node* temp = head;
+  Node* firstKNodesReversalHead = reverse_k_nodes(temp, k);
+  while(temp!=NULL){
+    Node* nextGroupHead = temp->next;
+    Node* smallAns = reverse_k_nodes(nextGroupHead, k);
+    temp->next = smallAns;
+    temp = nextGroupHead;
+  }
+  return firstKNodesReversalHead;
 }
 
 int main(){
@@ -414,7 +436,9 @@ int main(){
   cin>>k;
   // Node* reversed_LL_k_nodes_head = reverse_k_nodes(head, k);
   // print(reversed_LL_k_nodes_head);
-  Node* reversed_LL_k_nodes_head = reverse_k_nodes_iteratively(head, k);
+  // Node* reversed_LL_k_nodes_head = reverse_k_nodes_iteratively(head, k);
+  // print(reversed_LL_k_nodes_head);
+  Node* reversed_LL_k_nodes_head = reverseKGroup(head, k);
   print(reversed_LL_k_nodes_head);
 
 
