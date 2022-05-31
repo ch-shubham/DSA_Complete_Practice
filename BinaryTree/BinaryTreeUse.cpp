@@ -1,6 +1,7 @@
 #include<iostream>
 #include<queue>
 #include<climits> // for INT_MAX and INT_MIN
+#include<vector>
 using namespace std;
 
 #include "BinaryTreeNode.h"
@@ -318,6 +319,22 @@ bool isBST3(BinaryTreeNode<int> *root, int min = INT_MIN, int max = INT_MAX){
   return isLeftOK && isRightOK;
 }
 
+BinaryTreeNode<int>* helper(vector<int>& nums, int startIndex, int endIndex){
+  if(startIndex > endIndex){
+      return NULL;
+  }    
+  int midIndex = (startIndex + endIndex) / 2 ;
+  BinaryTreeNode<int>* root = new BinaryTreeNode<int>(nums[midIndex]);
+  root->left = helper(nums, startIndex, midIndex-1);
+  root->right = helper(nums, midIndex+1, endIndex);
+  return root;
+}
+
+// Function to create a binary search tree (BST) from a given sorted array.
+BinaryTreeNode<int>* sortedArrayToBinaryTree(vector<int>& nums){
+  return helper(nums, 0, nums.size() - 1);
+}
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 // 4 3 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1 --> BST tree sample input to check if the tree is BST or NOT. This input is a BST.
@@ -333,11 +350,15 @@ int main(){
   // int in[] = { 4,2,5,1,8,6,9,3,7 }; 
   // int pre[] = { 1,2,4,5,3,6,8,9,7 }; 
   
+  vector<int> nums = {1,2,4,6,8,10,12};
+  BinaryTreeNode<int>* sortedArrayToBinaryTreeRoot = sortedArrayToBinaryTree(nums);
+  printTreeLevelWise(sortedArrayToBinaryTreeRoot);
 
-  BinaryTreeNode<int>* root = takeInputLevelWise();
+
+  // BinaryTreeNode<int>* root = takeInputLevelWise();
   // IsBSTReturn isTreeBST = isBST2(root);
   // cout<<"Given Tree is BST ? "<<isTreeBST.isBST<<endl;
-  cout<<"Given Tree is BST ? "<<isBST3(root)<<endl;
+  // cout<<"Given Tree is BST ? "<<isBST3(root)<<endl;
   // BinaryTreeNode<int>* root = buildTree(in, pre, 9);
 
   // printTreeRecursively(root);
@@ -359,5 +380,6 @@ int main(){
   
   // 4 2 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1
   // printBetweenK1andK2(root, 2, 6);
-  delete root;
+  // delete root;
+  delete sortedArrayToBinaryTreeRoot;
 }
