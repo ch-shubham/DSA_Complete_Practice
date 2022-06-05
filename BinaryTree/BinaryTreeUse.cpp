@@ -335,6 +335,35 @@ BinaryTreeNode<int>* sortedArrayToBinaryTree(vector<int>& nums){
   return helper(nums, 0, nums.size() - 1);
 }
 
+vector<int> * getRootToNodePath(BinaryTreeNode<int>* root, int data){
+  if(root == NULL) {
+    return NULL;
+  }
+  
+  if(root->data == data){
+    vector<int>* output = new vector<int>();
+    output->push_back(root->data);    
+    return output;
+  }
+
+  vector<int>* leftOutput = getRootToNodePath(root->left, data);
+  if(leftOutput != NULL){
+    leftOutput->push_back(root->data);
+    return leftOutput;
+  }
+
+  vector<int>* rightOutput = getRootToNodePath(root->right, data);
+  if(rightOutput != NULL){
+    rightOutput->push_back(root->data);
+    return rightOutput;
+  }
+
+  else{
+    return NULL;
+  }
+}
+
+
 // 1 2 4 -1 -1 5 6 -1 -1 7 -1 -1 3 8 -1 -1 -1 --> input using recursion sample
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1 --> input using queue or level wise sample
 // 4 3 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1 --> BST tree sample input to check if the tree is BST or NOT. This input is a BST.
@@ -350,12 +379,19 @@ int main(){
   // int in[] = { 4,2,5,1,8,6,9,3,7 }; 
   // int pre[] = { 1,2,4,5,3,6,8,9,7 }; 
   
-  vector<int> nums = {1,2,4,6,8,10,12};
-  BinaryTreeNode<int>* sortedArrayToBinaryTreeRoot = sortedArrayToBinaryTree(nums);
-  printTreeLevelWise(sortedArrayToBinaryTreeRoot);
+  // vector<int> nums = {1,2,4,6,8,10,12};
+  // BinaryTreeNode<int>* sortedArrayToBinaryTreeRoot = sortedArrayToBinaryTree(nums);
+  // printTreeLevelWise(sortedArrayToBinaryTreeRoot);
 
 
-  // BinaryTreeNode<int>* root = takeInputLevelWise();
+  BinaryTreeNode<int>* root = takeInputLevelWise();
+
+  vector<int> * output = getRootToNodePath(root, 8);
+  for(int i=0; i<output->size(); i++){ // output is a pointer so we need to use arrow operator
+    cout<<output->at(i)<<endl;
+  }
+
+  delete output;
   // IsBSTReturn isTreeBST = isBST2(root);
   // cout<<"Given Tree is BST ? "<<isTreeBST.isBST<<endl;
   // cout<<"Given Tree is BST ? "<<isBST3(root)<<endl;
@@ -381,5 +417,5 @@ int main(){
   // 4 2 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1
   // printBetweenK1andK2(root, 2, 6);
   // delete root;
-  delete sortedArrayToBinaryTreeRoot;
+  // delete sortedArrayToBinaryTreeRoot;
 }
